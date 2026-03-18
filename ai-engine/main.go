@@ -1,0 +1,22 @@
+from fastapi import FastAPI
+import requests
+
+app = FastAPI()
+
+USER_URL = "https://ee109b02-dea5-436d-a8b8-e17df34b50b3-dev.e1-us-east-azure.choreoapis.dev/ai-api-orchestrator/user-service/v1.0/user"
+REWARD_URL = "https://ee109b02-dea5-436d-a8b8-e17df34b50b3-dev.e1-us-east-azure.choreoapis.dev/ai-api-orchestrator/reward-service/v1.0/reward"
+
+HEADERS = {
+    "Test-Key": "eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJhMGQyOGJkYi04NTZkLTRlODktODcwOS03OTVjNGJmOTI5N2VAY2FyYm9uLnN1cGVyIiwiYXVkIjoiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCIsIm9yZ2FuaXphdGlvbiI6eyJ1dWlkIjoiZWUxMDliMDItZGVhNS00MzZkLWE4YjgtZTE3ZGYzNGI1MGIzIn0sImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL2FwaVwvYW1cL3B1Ymxpc2hlclwvdjJcL2FwaXNcL2ludGVybmFsLWtleSIsImtleXR5cGUiOiJTQU5EQk9YIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOm51bGwsIm5hbWUiOiJyZXdhcmQtc2VydmljZSAtIGRlZmF1bHQtZW5kcG9pbnQiLCJjb250ZXh0IjoiXC9lZTEwOWIwMi1kZWE1LTQzNmQtYThiOC1lMTdkZjM0YjUwYjNcL2FpLWFwaS1vcmNoZXN0cmF0b3JcL3Jld2FyZC1zZXJ2aWNlXC92MS4wIiwicHVibGlzaGVyIjoiY2hvcmVvX3Byb2RfYXBpbV9hZG1pbiIsInZlcnNpb24iOiJ2MS4wIiwic3Vic2NyaXB0aW9uVGllciI6bnVsbH1dLCJleHAiOjE3NzM4MjgxOTcsInRva2VuX3R5cGUiOiJJbnRlcm5hbEtleSIsImlhdCI6MTc3MzgyNzU5NywianRpIjoiZGE0NmE2NWMtNjY3NS00MTcxLWE1YmEtOWFkZmU2YzUxNDJhIn0.SjZIX2XDH9nRl5KUYNQEBy_uZcOLb5MTKMFyeBFPL1nyiAB62h0lfbixV3rX3KGIro8cHA7FJVMcIM-9tUPEzzr1l2oUnJNtWT8f9-XInXlXWlnZZ3jvOS3CMvo0LnLEfdS42u5RrRZqMXk_rT5RRELj0KHpJVS_C_kqweYlXImy5OAXsisSKl7CXftOnS6hkKALLc5Gf9spmH-G0vxcZRaFe8_xLok5LzKZV2m0fLXaIOi3AwqH2oM-WSK0UoRI5y2VQRPCiOsHvK7X05wfEoIp1y24kszob2SUrTQGm1kGSAPN2z_pO_XWqHwvTxNXwZVoWCfsNZk1x2Dim8ZUe2Cuhiotrz5S0xo1Mr2L7sV8DhIOMERiCXqOi0yqQ0ltVlnu1M3svD-AKWpKw9LpNOXTuDSKd4nETh8hHnUOwob4JqiQotlSYhb0ywI525NxkCwMGJ44BIsSiAf6qKQbekMzh_wsEeOw4jItjmusWb16KEURr4MdCS3H1gt4-LsuteLfkMBGyNpveSw02CEtHjfRwMx4XmRc_U4mXN7YOw-lVN1Ek10mo5Dx4m7xWCHBhLI-zS4LOG8Xna0aORkjEijVYukcBZjAwLi37NET596Qvh6yfOTj13YgmaeTzFiNyTn-9C4Drsrf311laY6bNezKRk9MWohOkZ7xIH6BO8o"
+}
+
+@app.get("/analyze")
+def analyze():
+    user = requests.get(USER_URL, headers=HEADERS).json()
+    reward = requests.get(REWARD_URL, headers=HEADERS).json()
+
+    return {
+        "user": user,
+        "reward": reward,
+        "decision": "User is eligible for reward"
+    }
